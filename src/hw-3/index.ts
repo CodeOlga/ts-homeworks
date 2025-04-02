@@ -1,57 +1,76 @@
-class Circle {
-  public constructor(
-    public readonly name: string,
-    public readonly color: string,
-    public radius: number
+interface Printable {
+  print(): string;
+}
+abstract class Shape {
+  constructor(
+    readonly name: string,
+    readonly color: string
   ) {}
 
-  public calculateArea(): number {
+  abstract calculateArea(): number;
+}
+class Circle extends Shape {
+  constructor(
+    name: string,
+    color: string,
+    public radius: number
+  ) {
+    super(name, color);
+  }
+
+  calculateArea(): number {
     return Math.PI * this.radius ** 2;
   }
 }
 
-class Rectangle {
-  public constructor(
-    public readonly name: string,
-    public readonly color: string,
+class Rectangle extends Shape implements Printable {
+  constructor(
+    name: string,
+    color: string,
     public width: number,
     public height: number
-  ) {}
+  ) {
+    super(name, color);
+  }
 
-  public calculateArea(): number {
+  calculateArea(): number {
     return this.width * this.height;
   }
 
-  public print(): string {
+  print(): string {
     return `Площа прямокутника: width * height = ${this.width} * ${this.height}`;
   }
 }
 
-class Square {
-  public constructor(
-    public readonly name: string,
-    public readonly color: string,
+class Square extends Shape implements Printable {
+  constructor(
+    name: string,
+    color: string,
     public side: number
-  ) {}
+  ) {
+    super(name, color);
+  }
 
-  public calculateArea(): number {
+  calculateArea(): number {
     return this.side ** 2;
   }
 
-  public print(): string {
+  print(): string {
     return `Площа квадрата: side * side = ${this.side} * ${this.side}`;
   }
 }
 
-class Triangle {
-  public constructor(
-    public readonly name: string,
-    public readonly color: string,
+class Triangle extends Shape {
+  constructor(
+    name: string,
+    color: string,
     public base: number,
     public height: number
-  ) {}
+  ) {
+    super(name, color);
+  }
 
-  public calculateArea(): number {
+  calculateArea(): number {
     return (this.base * this.height) / 2;
   }
 }
