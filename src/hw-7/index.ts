@@ -1,6 +1,7 @@
 // Тип DeepReadonly: робить всі властивості об'єкта (включаючи вкладені) доступними тільки для читання
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K];
+  // readonly key: value;
 };
 
 // Тип DeepRequireReadonly: робить всі властивості об'єкта (включаючи вкладені) доступними тільки для читання та обов'язковими
@@ -22,3 +23,20 @@ type ObjectToPropertyDescriptor<T> = {
     configurable: boolean;
   };
 };
+
+// Приклад використання
+type Example = {
+  a: {
+    b: {
+      c: string;
+    };
+  };
+  d: number;
+};
+
+type ReadonlyExample = DeepReadonly<Example>;
+type RequireReadonlyExample = DeepRequireReadonly<Example>;
+
+type UpperCaseExample = UpperCaseKeys<Example>;
+
+type DescriptorExample = ObjectToPropertyDescriptor<Example>;
